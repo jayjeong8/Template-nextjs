@@ -1,12 +1,15 @@
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { FlatCompat } from "@eslint/eslintrc";
+import prettierPlugin from "eslint-plugin-prettier"; // ✅ 플러그인 불러오기
+import noRelativeImportPathsPlugin from "eslint-plugin-no-relative-import-paths"; // ✅ 추가된 플러그인
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
+  recommendedConfig: {}
 });
 
 const eslintConfig = [
@@ -18,7 +21,10 @@ const eslintConfig = [
       "prettier",
   ),
   {
-    plugins: ["prettier", "no-relative-import-paths"],
+    plugins:{
+      prettier: prettierPlugin,
+      "no-relative-import-paths": noRelativeImportPathsPlugin,
+    },
     rules: {
       "import/order": [
         "error",
