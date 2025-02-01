@@ -10,7 +10,63 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  ...compat.extends(
+      "eslint:recommended",
+      "next/core-web-vitals",
+      "plugin:@typescript-eslint/recommended",
+      "next/typescript",
+      "prettier",
+  ),
+  {
+    plugins: ["prettier", "no-relative-import-paths"],
+    rules: {
+      "import/order": [
+        "error",
+        {
+          groups: [
+            "type", "builtin", "external", "parent", "sibling", "index", "unknown"
+          ],
+          alphabetize: { order: "asc", caseInsensitive: true },
+          "newlines-between": "never"
+        }
+      ],
+      "@typescript-eslint/no-unused-vars": "error",
+      "arrow-body-style": "off",
+      "prefer-arrow-callback": "off",
+      "no-extra-boolean-cast": "warn",
+      "@typescript-eslint/no-empty-function": "off",
+      "newline-before-return": "error",
+      "comma-dangle": ["error", "always-multiline"],
+      "padding-line-between-statements": [
+        "error",
+        { blankLine: "always", prev: "function", next: "*" },
+        { blankLine: "always", prev: "*", next: "function" },
+        { blankLine: "always", prev: "*", next: "multiline-block-like" },
+        { blankLine: "always", prev: "multiline-block-like", next: "*" },
+      ],
+      "no-console": ["warn", { allow: ["warn", "error"] }],
+      "no-relative-import-paths/no-relative-import-paths": [
+        "warn",
+        { allowSameFolder: true, rootDir: "src", prefix: "@" }
+      ],
+      "prettier/prettier": [
+        "error",
+        {
+          doubleQuote: true,
+          plugins: ["prettier-plugin-tailwindcss"],
+        }
+      ]
+    },
+    settings: {
+      "import/resolver": {
+        node: {},
+        typescript: {}
+      },
+      "import/parsers": {
+        "@typescript-eslint/parser": [".ts", ".tsx"]
+      }
+    }
+  }
 ];
 
 export default eslintConfig;
