@@ -1,27 +1,27 @@
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { FlatCompat } from "@eslint/eslintrc";
-import prettierPlugin from "eslint-plugin-prettier"; // ✅ 플러그인 불러오기
-import noRelativeImportPathsPlugin from "eslint-plugin-no-relative-import-paths"; // ✅ 추가된 플러그인
+import noRelativeImportPathsPlugin from "eslint-plugin-no-relative-import-paths";
+import prettierPlugin from "eslint-plugin-prettier";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
-  recommendedConfig: {}
+  recommendedConfig: {},
 });
 
 const eslintConfig = [
   ...compat.extends(
-      "eslint:recommended",
-      "next/core-web-vitals",
-      "plugin:@typescript-eslint/recommended",
-      "next/typescript",
-      "prettier",
+    "eslint:recommended",
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "next/typescript",
+    "prettier",
   ),
   {
-    plugins:{
+    plugins: {
       prettier: prettierPlugin,
       "no-relative-import-paths": noRelativeImportPathsPlugin,
     },
@@ -30,11 +30,17 @@ const eslintConfig = [
         "error",
         {
           groups: [
-            "type", "builtin", "external", "parent", "sibling", "index", "unknown"
+            "type",
+            "builtin",
+            "external",
+            "parent",
+            "sibling",
+            "index",
+            "unknown",
           ],
           alphabetize: { order: "asc", caseInsensitive: true },
-          "newlines-between": "never"
-        }
+          "newlines-between": "never",
+        },
       ],
       "@typescript-eslint/no-unused-vars": "error",
       "arrow-body-style": "off",
@@ -53,26 +59,26 @@ const eslintConfig = [
       "no-console": ["warn", { allow: ["warn", "error"] }],
       "no-relative-import-paths/no-relative-import-paths": [
         "warn",
-        { allowSameFolder: true, rootDir: "src", prefix: "@" }
+        { allowSameFolder: true, rootDir: "src", prefix: "@" },
       ],
       "prettier/prettier": [
         "error",
         {
           doubleQuote: true,
           plugins: ["prettier-plugin-tailwindcss"],
-        }
-      ]
+        },
+      ],
     },
     settings: {
       "import/resolver": {
         node: {},
-        typescript: {}
+        typescript: {},
       },
       "import/parsers": {
-        "@typescript-eslint/parser": [".ts", ".tsx"]
-      }
-    }
-  }
+        "@typescript-eslint/parser": [".ts", ".tsx"],
+      },
+    },
+  },
 ];
 
 export default eslintConfig;
