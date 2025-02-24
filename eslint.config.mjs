@@ -1,6 +1,7 @@
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { FlatCompat } from "@eslint/eslintrc";
+import stylisticJs from "@stylistic/eslint-plugin-js";
 import noRelativeImportPathsPlugin from "eslint-plugin-no-relative-import-paths";
 import prettierPlugin from "eslint-plugin-prettier";
 
@@ -24,6 +25,7 @@ const eslintConfig = [
     plugins: {
       prettier: prettierPlugin,
       "no-relative-import-paths": noRelativeImportPathsPlugin,
+      "@stylistic/js": stylisticJs,
     },
     rules: {
       "import/order": [
@@ -49,13 +51,6 @@ const eslintConfig = [
       "@typescript-eslint/no-empty-function": "off",
       "newline-before-return": "error",
       "comma-dangle": ["error", "always-multiline"],
-      "padding-line-between-statements": [
-        "error",
-        { blankLine: "always", prev: "function", next: "*" },
-        { blankLine: "always", prev: "*", next: "function" },
-        { blankLine: "always", prev: "*", next: "multiline-block-like" },
-        { blankLine: "always", prev: "multiline-block-like", next: "*" },
-      ],
       "no-console": ["warn", { allow: ["warn", "error"] }],
       "no-relative-import-paths/no-relative-import-paths": [
         "warn",
@@ -67,6 +62,13 @@ const eslintConfig = [
           doubleQuote: true,
           plugins: ["prettier-plugin-tailwindcss"],
         },
+      ],
+      "@stylistic/js/padding-line-between-statements": [
+        "error",
+        { blankLine: "always", prev: "function", next: "*" },
+        { blankLine: "always", prev: "*", next: "function" },
+        { blankLine: "always", prev: "*", next: "multiline-block-like" },
+        { blankLine: "always", prev: "multiline-block-like", next: "*" },
       ],
     },
     settings: {
